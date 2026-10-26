@@ -1,148 +1,112 @@
 # Residential Gas Consumption Prediction
 
-## Project Overview
+**Notebook:** `notebooks/02_model_training.ipynb`  
+**Task:** Regression: *How much gas will this home use in 2024?*
 
-This project develops and evaluates machine learning models to predict annual residential gas consumption using building characteristics and historical gas consumption data.
+## Objective
 
-The project compares multiple regression models, applies cross-validation and hyperparameter tuning, and evaluates the selected model using a held-out test set.
+Predict annual residential gas consumption in 2024 from building characteristics and historical gas consumption.
 
-## Objectives
+## Features and target
 
-* Explore the relationship between building characteristics and annual gas consumption.
-* Establish a baseline for regression performance.
-* Train and compare multiple machine learning models.
-* Tune model hyperparameters using cross-validation.
-* Evaluate predictions using MAE, RMSE, and R².
-* Analyse prediction errors and feature importance.
-* Save the trained model pipeline for reuse.
+* **Target:** `Gcons2024` (kWh)
+* **Building characteristics:** `PROP_TYPE`, `PROP_AGE_BAND`, `FLOOR_AREA_BAND`, `COUNCIL_TAX_BAND`, `REGION`, `MAIN_HEAT_FUEL`
+* **Historical gas consumption:** `Gcons2023`, `Gcons2022`, `Gcons2021`
 
-## Dataset
-
-The project uses an anonymised dataset containing building characteristics and annual gas consumption measurements.
-
-The input features include:
-
-* Property type
-* Property age band
-* Floor area band
-* Council tax band
-* Region
-* Main heating fuel
-* Historical gas consumption for 2021, 2022, and 2023
-
-**Target:** `Gcons2024`
-
-The target-year flag `GasValFlag2024` is excluded from the input features to avoid potential target leakage.
-
-The raw dataset is not included in the repository.
+The target-year flag `GasValFlag2024` is excluded from the input features to avoid target leakage.
 
 ## Methodology
 
-### 1. Data preparation
+1. **Split:** 80/20 train/test split (`random_state=42`): 31,601 training and 7,901 test homes.
+2. **Preprocessing:**
+   * Numerical features: median imputation and standardisation.
+   * Categorical features: most-frequent imputation and one-hot encoding.
+3. **Model comparison:** five-fold cross-validation, with Mean Absolute Error (MAE) as the main metric. Lower is better.
+4. **Hyperparameter tuning:** `GridSearchCV` on Random Forest (three-fold) and Histogram Gradient Boosting (five-fold).
 
-The dataset is separated into training and test sets using an 80/20 split with `random_state=42`.
+## Cross-validation results
 
-### 2. Preprocessing
+| Model | Mean CV MAE (kWh) |
+|---|---:|
+| Baseline (median) | 4,901.07 |
+| Decision Tree | 2,642.68 |
+| Random Forest (default) | 1,849.93 |
+| Linear Regression | 1,782.46 |
+| Ridge Regression | 1,782.43 |
+| Gradient Boosting (tuned) | 1,756.12 |
+| **Random Forest (tuned)** | **1,752.97** |
 
-A preprocessing pipeline handles missing values and prepares the input features:
+The selected model is a **Random Forest** with `max_depth=10` and `n_estimators=100`.
 
-* Numerical features: median imputation and standardisation.
-* Categorical features: most-frequent imputation and one-hot encoding.
+## Test results
 
-### 3. Model comparison
+| Metric | Result |
+|---|---:|
+| MAE | 1,777.18 kWh |
+| RMSE | 3,129.35 kWh |
+| R² | 0.7811 |
 
-The models explored include:
+## Key findings
 
-* Dummy Regressor baseline
-* Linear Regression
-* Ridge Regression
-* Decision Tree Regressor
-* Random Forest Regressor
-* Gradient Boosting Regressor
+* `Gcons2023` dominates the model's feature importance (0.90), followed by `Gcons2022` (0.03) and `Gcons2021` (0.03). Last year's consumption is the strongest predictor of this year's.
+* Gas consumption in 2023 and 2024 is highly correlated (Pearson r = 0.89).
+* A simple **previous-year baseline** (predict 2024 = 2023) achieved a **lower MAE** (1,684.92 vs 1,730.62 kWh) on the 7,794 test homes with a 2023 reading. The Random Forest achieved a **lower RMSE** (3,012.57 vs 3,117.82 kWh), so it makes fewer very large errors.
+* Prediction errors grow for homes with higher consumption.
 
-Five-fold cross-validation is used for model comparison, with Mean Absolute Error (MAE) as the main metric. Lower MAE indicates better predictive performance.
+## Dataset
 
-### 4. Hyperparameter tuning
-
-GridSearchCV is used to tune the Random Forest model.
-
-The selected Random Forest configuration uses:
-
-* `max_depth=10`
-* `n_estimators=100`
-
-The tuning process uses three-fold cross-validation. The selected model is also evaluated using five-fold cross-validation.
-
-### 5. Evaluation
-
-The selected Random Forest's held-out test results are:
-
-| Metric |       Result |
-| ------ | -----------: |
-| MAE    | 1,777.18 kWh |
-| RMSE   | 3,129.35 kWh |
-| R²     |       0.7811 |
-
-The MAE represents the average absolute prediction error. RMSE gives greater weight to larger errors, while R² measures the proportion of target variation explained relative to a mean-prediction baseline.
-
-## Results and Interpretation
-
-The tuned Random Forest achieved a test MAE of 1,777.18 kWh and an R² of 0.7811.
-
-Feature importance analysis identified `Gcons2023` as the dominant predictor, followed by `Gcons2022` and `Gcons2021`.
-
-This indicates that historical gas consumption provides the strongest predictive signal in the selected model.
-
-A previous-year baseline comparison was also explored. On the evaluated subset, the simple baseline achieved a lower MAE than the Random Forest, while the Random Forest achieved a lower RMSE. Therefore, the more complex model did not outperform the simple baseline on every metric.
+The notebook uses the cleaned dataset prepared on Day 1: `data/anon2026_50k_cleaned.csv`. It contains 49,998 homes x 96 columns. The model uses the **39,502 homes** that have a 2024 gas reading.
 
 ## Visualisations
 
-The project includes visualisations for:
+All plots are saved in `figures/`.
 
-* Actual versus predicted gas consumption
-* Residuals versus predicted gas consumption
-* Correlations between historical consumption and the target
-* Random Forest feature importance
+### Actual vs predicted gas consumption
 
-See the `figures/` directory for the generated plots.
+Points close to the diagonal are accurate predictions. The spread grows for homes with high consumption.
 
-## Project Structure
+![Actual vs predicted 2024 gas consumption](figures/actual_vs_predicted.png)
 
-```text
-.
-├── data/                       
-├── figures/                    
-├── models/                     
-├── notebooks/
-│   └── 02_model_training.ipynb
-├── .gitignore
-├── README.md
-└── requirements.txt
-```
+### Feature importance
+
+![Random Forest feature importance](/figures/feature_importance.png)
+
+### 2023 vs 2024 gas consumption
+
+![2023 vs 2024 gas consumption](figures/gas_consumption_correlation.png)
+
+### Residuals vs predicted consumption
+
+Positive residuals mean the model under-predicted, negative ones that it over-predicted.
+
+![Residuals vs predicted gas consumption](figures/residuals_vs_predicted.png)
+
+## Saved Model
+
+`models/final_gas_consumption_model.joblib`: the full Random Forest pipeline (preprocessing + model). Load it with `joblib.load()` to predict the 2024 gas consumption of a new building. See `models/README.md` for the model card.
+
+Model files are ignored by `.gitignore` (`models/*.joblib`). Running the notebook recreates the file.
 
 ## How to Run
 
 1. Clone the repository.
 2. Create and activate a Python virtual environment.
-3. Install the dependencies listed in `requirements.txt`.
-4. Obtain the dataset separately and place it in the expected `data/` location.
-5. Open `notebooks/02_model_training.ipynb`.
-6. Run the notebook cells in order.
-
-The dataset is not distributed with this repository, so the notebook cannot run from beginning to end without access to the required data.
+3. Install the dependencies: `pip install -r requirements.txt`
+4. Check that `data/anon2026_50k_cleaned.csv` is in place.
+5. Open `notebooks/02_model_training.ipynb` and run the cells in order (**Run All**).
 
 ## Limitations
 
 * Historical gas consumption dominates the model's feature importance.
-* Some properties have substantially larger prediction errors than others.
-* The test set has already been used for model evaluation and baseline comparisons; it is not a completely untouched final benchmark.
 * The previous-year baseline performs better on MAE for the evaluated subset.
-* Feature importance describes the model's reliance on input features and does not establish causation.
-* Results may differ on other datasets, regions, or future years.
+* Prediction errors are larger for high-consumption properties.
+* The test set was also used for baseline comparisons, so it is not a completely untouched final benchmark.
+* Feature importance describes what the model relies on. It does not establish causation.
+* Results may differ on other datasets, regions or future years.
 
 ## AI Use Disclosure
 
-AI tools were used to support aspects of coding, debugging, explanation, and documentation. 
+AI tools were used to support aspects of coding, debugging, explanation, and documentation.
 
 ## Authors
 
