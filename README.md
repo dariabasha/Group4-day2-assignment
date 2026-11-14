@@ -4,8 +4,8 @@
 **Course:** AI Methods I – Day 2: Supervised learning (IAAC MaAI 2026/27)
 
 **Models on Hugging Face:**
-- **Gas consumption (regression):** https://huggingface.co/iaac-maai/day2-group4-gas-consumption
-- **EPC band (classification):** https://huggingface.co/iaac-maai/day2-group4-epc-band
+- **Gas consumption (regression):** https://huggingface.co/iaac-maai/Day2-team4-residential-gas-consumption-predictor
+- **EPC band (classification):** https://huggingface.co/iaac-maai/Day2-Team4-epc-band-predictor
 
 This repository trains and evaluates two supervised models on the same cleaned Day 1 dataset:
 
