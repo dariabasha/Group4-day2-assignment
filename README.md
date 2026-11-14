@@ -69,7 +69,7 @@ Points close to the diagonal are accurate predictions. The spread grows for home
 
 ### Feature importance
 
-![Random Forest feature importance](/figures/feature_importance.png)
+![Random Forest feature importance](figures/04_08_feature_importance.png)
 
 ### 2023 vs 2024 gas consumption
 
