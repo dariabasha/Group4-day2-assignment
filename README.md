@@ -37,7 +37,7 @@ The cleaning is documented in our Day 1 repository: https://github.com/iaac-maai
 
 ```
 ├── data/
-│   └── anon2026_50k_cleaned.csv           # cleaned dataset from Day 1
+│   └── .gitkeep                           # the cleaned dataset goes here (not committed, see How to run)
 ├── figures/                               # exported plots (shown below)
 ├── models/
 │   ├── README.md                          # index of the two model cards
@@ -64,7 +64,10 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-1. Check that `data/anon2026_50k_cleaned.csv` is in place.
+1. **Get the cleaned dataset** (18 MB, so it is not committed):
+   - Download the NEED anonymised 50k sample (`anon2026_50k.csv`) from the [NEED page](https://www.gov.uk/government/collections/national-energy-efficiency-data-framework-need).
+   - Put it in `data/` of our [Day 1 repository](https://github.com/iaac-maai/Group4-day1-assignment) and run `notebook/uk_energy_consumption_eda.ipynb` there. It saves `data/anon2026_50k_cleaned.csv`.
+   - Copy `anon2026_50k_cleaned.csv` into the `data/` folder of this repository.
 2. Open `notebook/02_model_training.ipynb`, select the `.venv` kernel and click **Run All**. It saves `models/final_gas_consumption_model.joblib`.
 3. Open `notebook/03_epc_band_prediction.ipynb` and click **Run All** (about 1–2 minutes). It saves `models/epc_band_gradient_boosting.joblib`.
 

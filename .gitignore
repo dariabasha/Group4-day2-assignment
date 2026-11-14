@@ -20,9 +20,9 @@ env/
 .env.*
 !.env.example
 
-# Raw and processed datasets
-# data/*
-# !data/README.md
+# Raw and processed datasets: not committed (see How to run in README.md)
+data/*
+!data/.gitkeep
 
 # Trained model binaries
 

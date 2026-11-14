@@ -157,7 +157,7 @@ Model files are ignored by `.gitignore` (`models/*.joblib`). Running the noteboo
 1. Clone the repository.
 2. Create and activate a Python virtual environment.
 3. Install the dependencies: `pip install -r requirements.txt`
-4. Check that `data/anon2026_50k_cleaned.csv` is in place.
+4. Put `anon2026_50k_cleaned.csv` in `data/` (it is not committed: see *How to run* in the main [README](README.md)).
 5. Open `notebook/03_epc_band_prediction.ipynb` and run the cells in order (**Run All**). It takes about 1–2 minutes.
 
 ## Limitations
