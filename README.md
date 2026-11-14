@@ -12,6 +12,8 @@ This repository trains and evaluates two supervised models on the same cleaned D
 1. **Gas consumption model:** predicts how much gas a home will use in 2024 (kWh).
 2. **EPC band model:** predicts a home's EPC band (A/B, C, D, E, F/G) from its gas and electricity use and its building characteristics.
 
+**Both models are part of our submission.** Each one has its own complete model card on Hugging Face.
+
 ## Use case
 
 **Gas consumption model.** An energy supplier or a local energy-planning team wants to estimate next year's gas demand of individual homes, from the building's characteristics and its last three years of consumption. The costly mistake is **under-estimating the large consumers**: they drive the total demand and the biggest bills. We use **MAE** as the main metric, because it is easy to read in kWh, and we also report **RMSE**, which punishes the large errors.
