@@ -1,6 +1,6 @@
 # Energy Rating (EPC Band) Prediction from Gas and Electricity Consumption
 
-**Notebook:** `notebooks/03_epc_band_prediction.ipynb`  
+**Notebook:** `notebook/03_epc_band_prediction.ipynb`  
 **Task:** Classification: *Given its gas and electricity use, what is this home's EPC band?*
 
 ## Objective
@@ -150,7 +150,7 @@ predict_epc(gas_kwh=10_000, elec_kwh=2_500, floor_area_band=2,
 # -> EPC band D, with the probability of each band
 ```
 
-Model files are ignored by `.gitignore` (`models/*.joblib`). Running the notebook recreates the file.
+Model files are ignored by `.gitignore` (`models/*.joblib`). Running the notebook recreates the file. The published model and its model card are on Hugging Face: https://huggingface.co/iaac-maai/Day2-Team4-epc-band-predictor (card: [models/epc_band/README.md](models/epc_band/README.md)).
 
 ## How to Run
 
@@ -158,7 +158,7 @@ Model files are ignored by `.gitignore` (`models/*.joblib`). Running the noteboo
 2. Create and activate a Python virtual environment.
 3. Install the dependencies: `pip install -r requirements.txt`
 4. Check that `data/anon2026_50k_cleaned.csv` is in place.
-5. Open `notebooks/03_epc_band_prediction.ipynb` and run the cells in order (**Run All**). It takes about 1–2 minutes.
+5. Open `notebook/03_epc_band_prediction.ipynb` and run the cells in order (**Run All**). It takes about 1–2 minutes.
 
 ## Limitations
 
@@ -170,8 +170,8 @@ Model files are ignored by `.gitignore` (`models/*.joblib`). Running the noteboo
 
 ## AI Use Disclosure
 
-AI tools were used to support aspects of coding, debugging, explanation, and documentation.
+See the [AI usage disclosure in the main README](README.md#ai-usage-disclosure).
 
 ## Authors
 
-IAAC AI Methods — Group 4
+Group 4 – Fawad Saleem, Hetashri Kalyani, Daria Basha, Luis Wulf. IAAC AI Methods I, MaAI 2026/27.
