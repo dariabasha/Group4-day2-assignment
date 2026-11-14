@@ -37,7 +37,7 @@ This model predicts the **annual gas consumption in 2024 (kWh)** of a home in En
 | **Algorithm** | `RandomForestRegressor` |
 | **Key hyperparameters** | `n_estimators=100`, `max_depth=10`, `random_state=42` (chosen with `GridSearchCV`) |
 | **Preprocessing** | Numeric columns: median imputation + `StandardScaler`. Categorical columns: most-frequent imputation + one-hot encoding (`handle_unknown="ignore"`) |
-| **File** | `model.joblib`: the whole fitted scikit-learn `Pipeline` |
+| **File** | `final_gas_consumption_model.joblib`: the whole fitted scikit-learn `Pipeline` |
 | **Library versions** | scikit-learn 1.9.1, pandas 3.0.6, numpy 2.5.3, joblib 1.6.0 |
 
 ## Input features
@@ -123,7 +123,7 @@ import joblib
 import pandas as pd
 from huggingface_hub import hf_hub_download
 
-path = hf_hub_download(repo_id="iaac-maai/day2-group4-gas-consumption", filename="model.joblib")
+path = hf_hub_download(repo_id="iaac-maai/day2-group4-gas-consumption", filename="final_gas_consumption_model.joblib")
 model = joblib.load(path)
 
 home = pd.DataFrame([{

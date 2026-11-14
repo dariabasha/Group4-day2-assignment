@@ -150,7 +150,7 @@ predict_epc(gas_kwh=10_000, elec_kwh=2_500, floor_area_band=2,
 # -> EPC band D, with the probability of each band
 ```
 
-Model files are ignored by `.gitignore` (`models/*.joblib`). Running the notebook recreates the file. The published model and its model card are on Hugging Face: https://huggingface.co/iaac-maai/Day2-Team4-epc-band-predictor (card: [models/epc_band/README.md](models/epc_band/README.md)).
+Model files are ignored by `.gitignore` (`models/*.joblib`). Running the notebook recreates the file. The published model and its model card are on Hugging Face: https://huggingface.co/iaac-maai/day2-group4-epc-band (card: [models/epc_band/README.md](models/epc_band/README.md)).
 
 ## How to Run
 

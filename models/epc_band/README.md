@@ -37,7 +37,7 @@ This model estimates the **EPC band** (A/B, C, D, E or F/G) of a gas-heated home
 | **Algorithm** | `HistGradientBoostingClassifier` |
 | **Key hyperparameters** | `learning_rate=0.1`, `max_leaf_nodes=31`, `class_weight=None`, `random_state=42` |
 | **Preprocessing** | Numeric columns and ordered bands: median imputation (no scaling for the tree model). Categories without order: most-frequent imputation + one-hot encoding (`handle_unknown="ignore"`) |
-| **File** | `model.joblib`: the whole fitted scikit-learn `Pipeline` |
+| **File** | `epc_band_gradient_boosting.joblib`: the whole fitted scikit-learn `Pipeline` |
 | **Library versions** | scikit-learn 1.9.1, pandas 3.0.6, numpy 2.5.3, joblib 1.6.0 |
 
 ## Input features
@@ -131,7 +131,7 @@ import joblib
 import pandas as pd
 from huggingface_hub import hf_hub_download
 
-path = hf_hub_download(repo_id="iaac-maai/day2-group4-epc-band", filename="model.joblib")
+path = hf_hub_download(repo_id="iaac-maai/day2-group4-epc-band", filename="epc_band_gradient_boosting.joblib")
 model = joblib.load(path)
 
 home = pd.DataFrame([{

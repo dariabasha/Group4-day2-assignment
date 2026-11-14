@@ -4,8 +4,8 @@ This repository has **two models**. Each one has its own model card, which is al
 
 | Model | Task | Model card | Hugging Face |
 |---|---|---|---|
-| Gas consumption (Random Forest) | Regression: 2024 gas use in kWh | [gas_consumption/README.md](gas_consumption/README.md) | https://huggingface.co/iaac-maai/Day2-team4-residential-gas-consumption-predictor |
-| EPC band (Gradient Boosting) | Classification: EPC band A/B–F/G | [epc_band/README.md](epc_band/README.md) | https://huggingface.co/iaac-maai/Day2-Team4-epc-band-predictor |
+| Gas consumption (Random Forest) | Regression: 2024 gas use in kWh | [gas_consumption/README.md](gas_consumption/README.md) | https://huggingface.co/iaac-maai/day2-group4-gas-consumption |
+| EPC band (Gradient Boosting) | Classification: EPC band A/B–F/G | [epc_band/README.md](epc_band/README.md) | https://huggingface.co/iaac-maai/day2-group4-epc-band |
 
 The trained `.joblib` files are **not** committed to GitHub (see `.gitignore`). Running the notebooks saves them here:
 
